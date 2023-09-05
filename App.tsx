@@ -1,112 +1,60 @@
-import { Button, Text, TextInput, View, StyleSheet, FlatList, Modal } from 'react-native';
-import React, { useState } from 'react'
-
-interface Item {
-  id: number,
-  value: string;
-}
+import { Button, Text, TextInput, View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Item } from './src/components/models';
+import Modal from './src/components/modal/Modal';
+import List from './src/components/list/List';
+import Input from './src/components/input/Input';
 
 export default function App() {
 
   const [textValue, setTextValue] = useState('');
   const [itemsList, setItemsList] = useState<Item[]>([]);
-  const [itemSelected, setItemSelected] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
+  const [itemSelected, setItemSelected] = useState<number | undefined>();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const onHandleChangeItem = (text: string) => setTextValue(text);
 
   const onHandleAddItem = () => {
     if (textValue.trim() !== '') {
-      setItemsList([...itemsList, { id: Math.random(), value: textValue }]);
+      setItemsList(prev => [
+        ...prev,
+        { id: Math.random(), value: textValue },
+      ]);
       setTextValue('');
     }
   };
 
-  const renderListItem = ({ item }: { item: Item }) => (
-    <View>
-      <Text style={style.items}>{item.value}</Text>
-    </View>
-  );
+  const onHandleDelete = (itemSelected: number) => {
+    const updatedItemsList = itemsList.filter((_, i) => i !== itemSelected);
+    setItemsList(updatedItemsList);
+    setModalVisible(false);
+  }
 
-  const onHandleDelete = () => { }
-
-  const onHandleModal = () => { }
+  const onHandleModal = (index: number) => {
+    setModalVisible(true)
+    setItemSelected(index)
+  }
 
   return (
-    <View style={style.container1}>
-      <View style={style.inputContainer}>
+    <View style={style.container}>
+      <Text style={{ fontSize: 35, marginBottom: 55, textDecorationLine: 'underline', textAlign: 'center', fontWeight: '700' }}>Shooping list</Text>
+      {/* <View style={style.inputContainer}>
         <TextInput placeholder='Item List' style={style.input} value={textValue} onChangeText={onHandleChangeItem} />
-        <Button title='ADD' onPress={onHandleAddItem} />
-      </View>
-      <View style={style.container2}>
-        <FlatList data={itemsList} renderItem={renderListItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
-      <Modal visible={modalVisible} animationType='slide'>
-        <View style={style.modalTitle}>
-          <Text></Text>
-        </View>
-        <View style={style.modalMessage}>
-          <Text>¿Estás seguro que querés eliminar?</Text>
-        </View>
-        <View style={style.modalButton}>
-          <Button title='Confirmar' onPress={onHandleDelete} />
-          <Button title='Cancelar' onPress={() => setModalVisible(false)} />
-        </View>
-      </Modal>
-      <Button title='Abrir' onPress={() => setModalVisible(true)} />
+        <Button title='ADD' onPress={onHandleAddItem} color='#f99588' />
+      </View> */}
+      <Input textValue={textValue} onHandleChangeItem={onHandleChangeItem} onHandleAddItem={onHandleAddItem} />
+      <List onHandleModal={onHandleModal}  itemsList={itemsList} />
+      <Modal modalVisible={modalVisible} onHandleDelete={onHandleDelete} setModalVisible={setModalVisible} itemSelected={itemSelected} setItemSelected={setItemSelected} itemsList={itemsList} />
     </View>
   );
 }
 
 const style = StyleSheet.create({
-  container1: {
+  container: {
+    height: 870,
     paddingLeft: 70,
     paddingRight: 70,
-    paddingTop: 130
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  input: {
-    borderColor: '#000',
-    borderWidth: 1,
-    width: 200,
-    padding: 5,
-  },
-  container2: {
-    height: 300,
-    marginTop: 50,
-    borderColor: '#000',
-    borderWidth: 1,
-    padding: 10,
-  },
-  items: {
-    width: 230,
-    padding: 10,
-    borderColor: '#000',
-    borderWidth: 1,
-    paddingTop: 5,
-    paddingBottom: 5,
-    marginTop: 7,
-    marginBottom: 7
-  },
-  modalTitle: {
-
-  },
-  modalMessage: {
-
-  },
-  modalButton: {
-
+    paddingTop: 110,
+    backgroundColor: '#fefae0',
   }
 })
-
-// {itemsList.map(item => (
-//   <View>
-//     <Text style={style.items}>{item.value}</Text>
-//   </View>
-// ))}
