@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
 import { InputProps } from '../models';
 

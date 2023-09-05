@@ -3,7 +3,7 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/Feather';
 import { ModalProps } from '../models';
 
-const Modal: React.FC<ModalProps> = ({ modalVisible, onHandleDelete, setModalVisible, itemSelected, setItemSelected, itemsList}) => {
+const Modal: React.FC<ModalProps> = ({ modalVisible, onHandleDelete, setModalVisible, itemSelected, setItemSelected, itemsList }) => {
 
     const handleCloseModal = () => {
         setModalVisible(false);
@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({ modalVisible, onHandleDelete, setModalVis
                         <Text style={styles.title}>¡ATTENTION!</Text>
                     </View>
                     <View style={styles.modalMessage}>
-                        <Text style={styles.message}>Are you sure you want to delete "{  itemSelected !== undefined && itemsList[itemSelected] ? itemsList[itemSelected].value : ''}"? </Text>
+                        <Text style={styles.message}>Are you sure you want to delete "{itemSelected !== undefined && itemsList[itemSelected] ? itemsList[itemSelected].value : ''}"? </Text>
                     </View>
                     <View style={styles.modalButton}>
                         <Button title='Confirm' onPress={() => {

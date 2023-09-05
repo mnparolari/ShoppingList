@@ -1,4 +1,4 @@
-import { Button, Text, TextInput, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { Item } from './src/components/models';
 import Modal from './src/components/modal/Modal';
@@ -38,10 +38,6 @@ export default function App() {
   return (
     <View style={style.container}>
       <Text style={{ fontSize: 35, marginBottom: 55, textDecorationLine: 'underline', textAlign: 'center', fontWeight: '700' }}>Shooping list</Text>
-      {/* <View style={style.inputContainer}>
-        <TextInput placeholder='Item List' style={style.input} value={textValue} onChangeText={onHandleChangeItem} />
-        <Button title='ADD' onPress={onHandleAddItem} color='#f99588' />
-      </View> */}
       <Input textValue={textValue} onHandleChangeItem={onHandleChangeItem} onHandleAddItem={onHandleAddItem} />
       <List onHandleModal={onHandleModal}  itemsList={itemsList} />
       <Modal modalVisible={modalVisible} onHandleDelete={onHandleDelete} setModalVisible={setModalVisible} itemSelected={itemSelected} setItemSelected={setItemSelected} itemsList={itemsList} />
