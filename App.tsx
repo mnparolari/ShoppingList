@@ -43,7 +43,7 @@ export default function App() {
     <View style={style.container}>
       <Text style={{ fontSize: 35, marginBottom: 55, textDecorationLine: 'underline', textAlign: 'center', fontWeight: '700' }}>Shooping list</Text>
       <Input textValue={textValue} onHandleChangeItem={onHandleChangeItem} onHandleAddItem={onHandleAddItem} />
-      <List clearItemList={clearItemList} onHandleModal={onHandleModal}  itemsList={itemsList} />
+      <List setItemsList={setItemsList} clearItemList={clearItemList} onHandleModal={onHandleModal}  itemsList={itemsList} />
       <Modal modalVisible={modalVisible} onHandleDelete={onHandleDelete} setModalVisible={setModalVisible} itemSelected={itemSelected} setItemSelected={setItemSelected} itemsList={itemsList} />
     </View>
   );

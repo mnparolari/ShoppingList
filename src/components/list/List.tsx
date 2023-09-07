@@ -17,13 +17,6 @@ const List: React.FC<FlatListProps> = ({ onHandleModal, itemsList, clearItemList
         setCheckedItems(updatedCheckedItems);
     };
 
-    const selectedIndices = checkedItems.reduce((indices, isChecked, index) => {
-        if (isChecked) {
-            indices.push(index);
-        }
-        return indices;
-    }, [] as number[]);
-
     const renderListItem = ({ item, index }: { item: Item; index: number }) => (
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
