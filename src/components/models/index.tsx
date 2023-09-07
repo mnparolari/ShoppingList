@@ -15,6 +15,7 @@ export interface ModalProps {
 export interface FlatListProps {
     onHandleModal: (index: number) => void;
     itemsList: Item[];
+    clearItemList: () => void;
 }
 
 export interface InputProps {

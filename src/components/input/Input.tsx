@@ -5,7 +5,7 @@ import { InputProps } from '../models';
 const Input: React.FC<InputProps> = ({ textValue, onHandleChangeItem, onHandleAddItem }) => {
     return (
         <View style={styles.inputContainer}>
-            <TextInput placeholder='Item List' style={styles.input} value={textValue} onChangeText={onHandleChangeItem} />
+            <TextInput placeholder='Product' style={styles.input} value={textValue} onChangeText={onHandleChangeItem} />
             <Button title='ADD' onPress={onHandleAddItem} color='#f99588' />
         </View>
     )

@@ -1,13 +1,12 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Checkbox } from 'react-native-paper';
 import { FlatListProps, Item } from '../models';
 import Icon from 'react-native-vector-icons/Feather';
 
-const List: React.FC<FlatListProps> = ({ onHandleModal, itemsList }) => {
+const List: React.FC<FlatListProps> = ({ onHandleModal, itemsList, clearItemList }) => {
 
     const [checkedItems, setCheckedItems] = useState<boolean[]>(Array(itemsList.length).fill(false));
-
     useEffect(() => {
         setCheckedItems(Array(itemsList.length).fill(false));
     }, [itemsList]);
@@ -25,9 +24,6 @@ const List: React.FC<FlatListProps> = ({ onHandleModal, itemsList }) => {
         return indices;
     }, [] as number[]);
 
-
-    const isDeleteButtonDisabled = selectedIndices.length === 0;
-
     const renderListItem = ({ item, index }: { item: Item; index: number }) => (
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
@@ -42,9 +38,9 @@ const List: React.FC<FlatListProps> = ({ onHandleModal, itemsList }) => {
                 />
                 <Text style={styles.items}>{item.value}</Text>
             </TouchableOpacity>
-            <Icon name='trash-2' size={20} style={[styles.deleteIcon, { backgroundColor: isDeleteButtonDisabled ? 'gray' : '#f66556' }]} onPress={() => {
-                if (!isDeleteButtonDisabled) {
-                    onHandleModal(index);
+            <Icon name='trash-2' size={20} style={[styles.deleteIcon, { backgroundColor: checkedItems[index] ? '#f66556' : 'gray'}]} onPress={() => {
+                if (checkedItems[index]) { 
+                    onHandleModal(index); 
                 }
             }} />
         </View>
@@ -55,6 +51,7 @@ const List: React.FC<FlatListProps> = ({ onHandleModal, itemsList }) => {
             <FlatList data={itemsList} renderItem={renderListItem}
                 keyExtractor={(item, index) => index.toString()}
             />
+            <Button title='Submit List' onPress={clearItemList} color='#f99588'></Button>
         </View>
     )
 }
@@ -63,7 +60,7 @@ export default List
 
 const styles = StyleSheet.create({
     itemsContainer: {
-        height: 200,
+        height: 400,
         marginTop: 50,
         padding: 10,
     },

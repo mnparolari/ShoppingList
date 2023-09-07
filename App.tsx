@@ -35,11 +35,15 @@ export default function App() {
     setItemSelected(index)
   }
 
+  const clearItemList = () => {
+    setItemsList([]);
+  };
+
   return (
     <View style={style.container}>
       <Text style={{ fontSize: 35, marginBottom: 55, textDecorationLine: 'underline', textAlign: 'center', fontWeight: '700' }}>Shooping list</Text>
       <Input textValue={textValue} onHandleChangeItem={onHandleChangeItem} onHandleAddItem={onHandleAddItem} />
-      <List onHandleModal={onHandleModal}  itemsList={itemsList} />
+      <List clearItemList={clearItemList} onHandleModal={onHandleModal}  itemsList={itemsList} />
       <Modal modalVisible={modalVisible} onHandleDelete={onHandleDelete} setModalVisible={setModalVisible} itemSelected={itemSelected} setItemSelected={setItemSelected} itemsList={itemsList} />
     </View>
   );
